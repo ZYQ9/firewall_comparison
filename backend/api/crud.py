@@ -58,4 +58,14 @@ def search_firewall_models(db: Session, search_term: str) -> List[FirewallModel]
         .all()
     )
 
-
+# DELETE Functions
+def delete_firewall_model(db: Session, fwmodel_id: str) -> bool:
+    """
+    Delete a firewall model by its model number.
+    """
+    fwmodel = db.query(FirewallModel).filter(FirewallModel.model_number == fwmodel_id).first()
+    if fwmodel:
+        db.delete(fwmodel)
+        db.commit()
+        return True
+    return False
