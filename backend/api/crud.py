@@ -3,6 +3,8 @@ from typing import List, Optional
 from models import FirewallModel
 from core.schemas import schemas
 
+
+# POST Functions
 def create_firewall_model(db: Session, fwmodel: schemas.FirewallModelCreate) -> FirewallModel:
     db_fwmodel = FirewallModel(
         model_number=fwmodel.model_number,
@@ -18,3 +20,42 @@ def create_firewall_model(db: Session, fwmodel: schemas.FirewallModelCreate) -> 
     db.commit()
     db.refresh(db_fwmodel)
     return db_fwmodel
+
+# GET Functions
+def get_firewall_model(db: Session, fwmodel_id: str) -> Optional[FirewallModel]:
+    """
+    Retrieve a firewall model by its ID.
+    """
+    return db.query(FirewallModel).filter(FirewallModel.model_number == fwmodel_id).first()
+
+def get_firewall_models(db: Session, skip: int=0, limit: int=100) -> List[FirewallModel]:
+    """
+    Retrieve a list of firewall models with pagination.
+    """
+    return db.query(FirewallModel).offset(skip).limit(limit).all()
+
+def get_firewall_models_by_vendor(db: Session, vendor_id: str) -> List[FirewallModel]:
+    """
+    Retrieve all firewall models for a specific vendor
+    """
+    return (
+        db.query(FirewallModel)
+        .filter(FirewallModel.vendor == vendor_id)
+        .all()
+    )
+
+def search_firewall_models(db: Session, search_term: str) -> List[FirewallModel]:
+    """
+    Search across vendor name, model number, and interfaces for keyword
+    """
+    return (
+        db.query(FirewallModel)
+        .filter(
+            (FirewallModel.vendor.ilike(f"%{search_term}%"))
+            | (FirewallModel.model_number.ilike(f"%{search_term}%"))
+            | (FirewallModel.interfaces.ilike(f"%{search_term}%"))
+        )
+        .all()
+    )
+
+
