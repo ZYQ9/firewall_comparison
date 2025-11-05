@@ -1,6 +1,6 @@
 from typing import List,Optional
 from pydantic import BaseModel, Field
-from datetime import date
+
 
 # Firewall Model Schema
 class FirewallModelBase(BaseModel):
