@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from typing import List, Optional
-from models import FirewallModel
+from automations.firewall_comparison.backend.models import FirewallModel
 from backend.core import schemas
 
 # POST Functions
