@@ -50,7 +50,8 @@ services:
 #Volumes and Networks
 volumes:
   postgres_data:
+  pgadmin_data:
 
 networks:
   firewall_network:
-    driver: bridge
+  driver: bridge
