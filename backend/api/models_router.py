@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
 from typing import List
-from backend.core import schemas
+from core import schemas
 from automations.firewall_comparison.backend.crud import (
     create_firewall_model,
     get_firewall_model,
