@@ -12,4 +12,19 @@ from crud import (
 )
 from backend.core.database import get_db
 
-router = APIRouter(prefix="/firewall_models", tags=["firewall_models"])
+router = APIRouter(prefix="/models", tags=["firewall_models"])
+
+@router.post("/", response_model=schemas.FirewallModelOut, status_code=201)
+async def create_model(fwmodel: schemas.FirewallModelCreate, db: Session = Depends(get_db)):
+    return create_firewall_model(db, fwmodel)
+
+@router.get("/{fwmodel_id}", response_model=schemas.FirewallModelOut)
+async def read_model(fwmodel_id: str, db: Session = Depends(get_db)):
+    db_fwmodel = get_firewall_model(db, fwmodel_id)
+    if db_fwmodel is None:
+        raise HTTPException(status_code=404, detail="Firewall model not found")
+    return db_fwmodel
+
+@router.get("/", response_model=List[schemas.FirewallModelOut])
+async def read_models(db: Session = Depends(get_db)):
+    return get_firewall_models(db)
