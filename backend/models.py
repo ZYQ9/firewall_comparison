@@ -1,7 +1,7 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship, mapped_column, Mapped
 
-from backend.core.database import Base
+from core.database import Base
 
 class FirewallModel(Base):
     __tablename__ = "firewall_models"
