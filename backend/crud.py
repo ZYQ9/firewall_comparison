@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from typing import List, Optional
 from automations.firewall_comparison.backend.models import FirewallModel
-from backend.core import schemas
+from core import schemas
 
 # POST Functions
 def create_firewall_model(db: Session, fwmodel: schemas.FirewallModelCreate) -> FirewallModel:
