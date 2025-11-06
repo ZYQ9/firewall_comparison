@@ -27,7 +27,7 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: firewall_db
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     networks:
       - firewall_network  
 #PgAdmin Service
