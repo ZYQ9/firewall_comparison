@@ -1,0 +1,57 @@
+version: "3.9"
+
+services:
+#Backend Service
+  backend:
+    build: ./backend
+    container_name: firewall_backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./backend/.env
+    depends_on:
+      - db
+    volumes:
+      - ./backend:/app
+    networks:
+      - firewall_network
+
+#PostgreSQL Database Service
+  db:
+    image: postgres:15
+    container_name: firewall_db
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: firewall_db
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - firewall_network  
+#PgAdmin Service
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: firewall_pgadmin
+    restart: always
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@firewall.local
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    depends_on:
+      - db
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - firewall_network
+
+#Volumes and Networks
+volumes:
+  postgres_data:
+
+networks:
+  firewall_network:
+    driver: bridge

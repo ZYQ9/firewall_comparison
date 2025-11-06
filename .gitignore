@@ -3,3 +3,17 @@ venv/
 
 # Environment
 .env 
+.env.*
+
+# Docker local overrides and artifacts
+docker-compose.override.yml
+**/Dockerfile.local
+**/docker-compose.local.yml
+
+# Volumes and cache
+postgres_data/
+pgadmin_data/
+
+# Python cache
+*.pyc
+__pycache__/
