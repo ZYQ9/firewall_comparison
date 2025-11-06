@@ -10,7 +10,7 @@ from crud import (
     search_firewall_models,
     delete_firewall_model,
 )
-from backend.core.database import get_db
+from core.database import get_db
 
 router = APIRouter(prefix="/models", tags=["firewall_models"])
 

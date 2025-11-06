@@ -2,7 +2,7 @@ from fastapi import Depends, FastAPI, HTTPException, status
 from sqlalchemy.orm import Session
 from fastapi.middleware.cors import CORSMiddleware
 
-from backend.core.database import Base, engine
+from core.database import Base, engine
 from backend.api import models_router
 import logging
 import uvicorn
