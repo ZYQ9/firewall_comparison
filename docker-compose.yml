@@ -2,7 +2,10 @@
 services:
 #Backend Service
   backend:
-    build: ./backend
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    image: firewall_backend 
     container_name: firewall_backend
     ports:
       - "8000:8000"
