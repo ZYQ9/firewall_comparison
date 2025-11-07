@@ -16,7 +16,7 @@ class FirewallModel(Base):
     )
 
     model_number: Mapped[str] = mapped_column(index=True)
-    vendor: Mapped[int] = mapped_column(index=True)
+    vendor: Mapped[str] = mapped_column(index=True)
     firewall_throughput: Mapped[float] = mapped_column()
     ips_throughput: Mapped[float] = mapped_column()
     threat_prevention_throughput_gbps: Mapped[float | None] = mapped_column(nullable=True)
