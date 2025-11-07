@@ -15,14 +15,13 @@ class FirewallModelBase(BaseModel):
     interfaces: str = Field(None, example="10x GE RJ45, 2x 10G SFP+")
 
 class FirewallModelCreate(FirewallModelBase):
-    vendor_id: int = Field(..., example=1)
+    pass
 
 class FirewallModelUpdate(FirewallModelBase):
     pass 
 
 class FirewallModelOut(FirewallModelBase):
-    id: UUID
-    vendor: str = Field(..., description="The name of the vendor")
+    id: UUID = Field(..., description="The unique identifier of the firewall model")
 
     class Config:
         from_attributes = True
@@ -32,6 +31,7 @@ class ComparisonRequest(BaseModel):
     fwmodel_ids: List[UUID] = Field(..., description="List of firewall model IDs to compare")
 
 class ComparisonResult(BaseModel):
+    id: UUID
     model_number: str
     vendor: str
     firewall_throughput: Optional[float]
