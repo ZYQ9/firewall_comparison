@@ -8,7 +8,7 @@ from core import schemas
 def create_firewall_model(db: Session, fwmodel: schemas.FirewallModelCreate) -> FirewallModel:
     db_fwmodel = FirewallModel(
         model_number=fwmodel.model_number,
-        vendor=fwmodel.vendor_id,
+        vendor=fwmodel.vendor,
         firewall_throughput=fwmodel.firewall_throughput,
         ips_throughput=fwmodel.ips_throughput,
         threat_prevention_throughput_gbps=fwmodel.threat_prevention_throughput_gbps,
