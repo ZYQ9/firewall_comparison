@@ -12,12 +12,7 @@ if not DATABASE_URL:
     raise ValueError("DATABASE_URL environment variable not set. Please define in your .env file")
 
 # Create the SQLAlchemy engine
-engine = create_engine(
-    DATABASE_URL,
-    pool_pre_ping=True,
-    pool_size=10,
-    max_overflow=20,
-)
+engine = create_engine(DATABASE_URL)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

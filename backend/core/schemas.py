@@ -24,7 +24,7 @@ class FirewallModelOut(FirewallModelBase):
     vendor: str = Field(..., description="The name of the vendor")
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 # Comparison Schema
 class ComparisonRequest(BaseModel):
@@ -41,4 +41,4 @@ class ComparisonResult(BaseModel):
     interfaces: Optional[str]
 
     class Config:
-        orm_mode = True
+        from_attributes = True
