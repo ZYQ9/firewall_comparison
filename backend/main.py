@@ -6,6 +6,15 @@ from core.database import Base, engine
 from api import models_router
 import logging
 import uvicorn
+from contextlib import asynccontextmanager
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup code
+    logging.info("Starting up the Firewall Comparison API...")
+    yield
+    # Shutdown code
+    logging.info("Shutting down the Firewall Comparison API...")
 
 # Initialize the FastAPI app
 app = FastAPI(
@@ -15,6 +24,7 @@ app = FastAPI(
         "Support for CRUD operations, model comparisons, and PDF exports"
     ),
     version="1.0.0",
+    lifespan=lifespan,
 )
 
 # DB Initialization
@@ -32,10 +42,3 @@ async def health_check():
 async def root():
     return {"message": "Firewall Comparison API is running"}
 
-@app.lifespan("startup")
-async def startup_event():
-    print("Starting up...")
-
-@app.lifespan("shutdown")
-async def shutdown_event():
-    print("Shutting down...")
