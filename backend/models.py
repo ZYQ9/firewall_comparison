@@ -9,7 +9,7 @@ class FirewallModel(Base):
     __tablename__ = "firewall_models"
 
     id: Mapped[uuid.UUID] = mapped_column(
-        PGUUID(as_uuid=True),
+        PGUUID(as_uuid=True), #Updating to use PostgreSQL UUID type
         primary_key=True,
         index=True,
         default=uuid.uuid4,
