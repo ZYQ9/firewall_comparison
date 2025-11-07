@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 from typing import List, Optional
+from uuid import UUID
 from models import FirewallModel
 from core import schemas
 
@@ -21,11 +22,11 @@ def create_firewall_model(db: Session, fwmodel: schemas.FirewallModelCreate) -> 
     return db_fwmodel
 
 # GET Functions
-def get_firewall_model(db: Session, fwmodel_id: str) -> Optional[FirewallModel]:
+def get_firewall_model(db: Session, fwmodel_id: UUID) -> Optional[FirewallModel]:
     """
     Retrieve a firewall model by its ID.
     """
-    return db.query(FirewallModel).filter(FirewallModel.model_number == fwmodel_id).first()
+    return db.query(FirewallModel).filter(FirewallModel.id == fwmodel_id).first()
 
 def get_firewall_models(db: Session, skip: int=0, limit: int=100) -> List[FirewallModel]:
     """
@@ -58,11 +59,11 @@ def search_firewall_models(db: Session, search_term: str) -> List[FirewallModel]
     )
 
 # DELETE Functions
-def delete_firewall_model(db: Session, fwmodel_id: str) -> bool:
+def delete_firewall_model(db: Session, fwmodel_id: UUID) -> bool:
     """
-    Delete a firewall model by its model number.
+    Delete a firewall model by its ID.
     """
-    fwmodel = db.query(FirewallModel).filter(FirewallModel.model_number == fwmodel_id).first()
+    fwmodel = db.query(FirewallModel).filter(FirewallModel.id == fwmodel_id).first()
     if fwmodel:
         db.delete(fwmodel)
         db.commit()

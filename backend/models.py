@@ -1,12 +1,19 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship, mapped_column, Mapped
+from sqlalchemy.dialects.postgresql import UUID as PGUUID
+import uuid
 
 from core.database import Base
 
 class FirewallModel(Base):
     __tablename__ = "firewall_models"
 
-    id: Mapped[int] = mapped_column(primary_key=True, index=True)
+    id: Mapped[uuid.UUID] = mapped_column(
+        PGUUID(as_uuid=True),
+        primary_key=True,
+        index=True,
+        default=uuid.uuid4,
+    )
 
     model_number: Mapped[str] = mapped_column(index=True)
     vendor: Mapped[int] = mapped_column(index=True)

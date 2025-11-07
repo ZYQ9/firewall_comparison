@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
 from typing import List
+from uuid import UUID
 from core import schemas
 from crud import (
     create_firewall_model,
@@ -19,7 +20,7 @@ async def create_model(fwmodel: schemas.FirewallModelCreate, db: Session = Depen
     return create_firewall_model(db, fwmodel)
 
 @router.get("/{fwmodel_id}", response_model=schemas.FirewallModelOut)
-async def read_model(fwmodel_id: str, db: Session = Depends(get_db)):
+async def read_model(fwmodel_id: UUID, db: Session = Depends(get_db)):
     db_fwmodel = get_firewall_model(db, fwmodel_id)
     if db_fwmodel is None:
         raise HTTPException(status_code=404, detail="Firewall model not found")

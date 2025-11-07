@@ -1,5 +1,6 @@
 from typing import List,Optional
 from pydantic import BaseModel, Field
+from uuid import UUID
 
 
 # Firewall Model Schema
@@ -20,7 +21,7 @@ class FirewallModelUpdate(FirewallModelBase):
     pass 
 
 class FirewallModelOut(FirewallModelBase):
-    id: int
+    id: UUID
     vendor: str = Field(..., description="The name of the vendor")
 
     class Config:
@@ -28,7 +29,7 @@ class FirewallModelOut(FirewallModelBase):
 
 # Comparison Schema
 class ComparisonRequest(BaseModel):
-    fwmodel_ids: List[int] = Field(..., description="List of firewall model IDs to compare")
+    fwmodel_ids: List[UUID] = Field(..., description="List of firewall model IDs to compare")
 
 class ComparisonResult(BaseModel):
     model_number: str
